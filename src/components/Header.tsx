@@ -35,7 +35,7 @@ const Header = () => {
         <div className="flex items-center justify-between">
           {/* Logo */}
           <div className="text-2xl font-bold bg-gradient-to-r from-emerald-400 via-cyan-500 to-blue-500 bg-clip-text text-transparent">
-            Portfolio
+            Pawan Kumar Gupta
           </div>
 
           {/* Desktop Navigation */}
