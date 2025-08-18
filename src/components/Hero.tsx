@@ -102,17 +102,17 @@ const Hero = () => {
       ref={sectionRef}
       className="relative min-h-screen flex items-center justify-center bg-gray-50"
     >
-      <div className="container mx-auto px-6 text-center relative z-10">
-        <div className="grid lg:grid-cols-2 gap-12 items-center">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 items-center">
           {/* Lottie Animation */}
           <div className="order-2 lg:order-1 flex justify-center">
-            <div className="relative w-full flex justify-center items-center h-[500px]">
+            <div className="relative w-full flex justify-center items-center h-[250px] sm:h-[350px] md:h-[420px] lg:h-[500px]">
               {lotieAni && (
                 <Lottie
                   lottieRef={lottieRef}
                   animationData={lotieAni}
                   loop={false}
-                  style={{ width: '500px', height: '500px' }}
+                  style={{ width: '100%', maxWidth: 400, height: '100%' }}
                   className="mx-auto"
                 />
               )}
@@ -121,45 +121,45 @@ const Hero = () => {
 
           {/* Text Content */}
           <div className="order-1 lg:order-2 animate-fade-in-up">
-            <h1 className="text-5xl md:text-7xl font-bold mb-6 
+            <h1 className="text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-bold mb-6 
               bg-gradient-to-r from-emerald-400 via-cyan-500 to-blue-500 
-              bg-clip-text text-transparent">
+              bg-clip-text text-transparent"
+            >
               Hey, my name is
               <span className="block bg-gradient-to-r from-emerald-400 via-cyan-500 to-blue-500 bg-clip-text text-transparent">
                 Pawan Kumar Gupta
               </span>
             </h1>
 
-            <div className="text-xl md:text-2xl text-gray-700 mb-8 h-8">
+            <div className="text-base sm:text-xl md:text-2xl text-gray-700  h-8">
               <span className="border-r-2 border-emerald-400 animate-pulse">
                 {displayText}
               </span>
             </div>
 
-            <p className="text-lg text-gray-700 mb-12 max-w-2xl mx-auto leading-relaxed">
+            <p className="text-sm sm:text-base md:text-lg text-gray-700 mb-8 sm:mb-12 max-w-2xl mx-auto leading-relaxed">
               Passionate about creating beautiful, functional, and user-centered digital experiences.
               I bring ideas to life through code and design.
             </p>
 
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-6 mb-16">
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-6 mb-12 sm:mb-16">
               <button
                 onClick={() => scrollToSection('#projects')}
-                className="bg-gradient-to-r from-emerald-400 via-cyan-500 to-blue-500 text-white px-8 py-4 rounded-full font-semibold hover:shadow-lg hover:shadow-emerald-200/40 transition-all duration-300 transform hover:scale-105"
+                className="bg-gradient-to-r from-emerald-400 via-cyan-500 to-blue-500 text-white px-6 sm:px-8 py-3 sm:py-4 rounded-full font-semibold hover:shadow-lg hover:shadow-emerald-200/40 transition-all duration-300 transform hover:scale-105 w-full sm:w-auto"
               >
                 View My Work
               </button>
 
               <button
                 onClick={() => scrollToSection('#contact')}
-                className="border-2 border-emerald-400 text-emerald-600 hover:bg-emerald-50 px-8 py-4 rounded-full font-semibold transition-all duration-300 transform hover:scale-105"
+                className="border-2 border-emerald-400 text-emerald-600 hover:bg-emerald-50 px-6 sm:px-8 py-3 sm:py-4 rounded-full font-semibold transition-all duration-300 transform hover:scale-105 w-full sm:w-auto"
               >
                 Get In Touch
               </button>
             </div>
 
-            <div className="flex justify-center space-x-6 mb-16">
+            <div className="flex justify-center space-x-4 sm:space-x-6 mb-12 sm:mb-16">
               {[
-               
                 { icon: Linkedin, href: '#', label: 'LinkedIn' },
                 { icon: Mail, href: '#contact', label: 'Email' }
               ].map((social, index) => (
@@ -167,10 +167,10 @@ const Hero = () => {
                   key={social.label}
                   href={social.href}
                   onClick={social.href.startsWith('#') ? (e) => { e.preventDefault(); scrollToSection(social.href); } : undefined}
-                  className="p-3 rounded-full bg-white shadow hover:shadow-md transition-all duration-300 transform hover:scale-110 group"
+                  className="p-2 sm:p-3 rounded-full bg-white shadow hover:shadow-md transition-all duration-300 transform hover:scale-110 group"
                   style={{ animationDelay: `${index * 100}ms` }}
                 >
-                  <social.icon size={24} className="text-emerald-600 group-hover:text-cyan-600 transition-colors" />
+                  <social.icon size={22} className="text-emerald-600 group-hover:text-cyan-600 transition-colors" />
                 </a>
               ))}
             </div>
@@ -180,9 +180,9 @@ const Hero = () => {
 
       <button
         onClick={() => scrollToSection('#about')}
-        className="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce"
+        className="absolute bottom-6 sm:bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce"
       >
-        <ChevronDown size={32} className="text-emerald-500 hover:text-cyan-500 transition-colors" />
+        <ChevronDown size={28} className="text-emerald-500 hover:text-cyan-500 transition-colors" />
       </button>
     </section>
   );

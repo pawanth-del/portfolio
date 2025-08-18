@@ -40,15 +40,14 @@ const Projects = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [isTransitioning, setIsTransitioning] = useState(true);
 
-  // Create extended array for smooth infinite scroll
+  // Extended for smooth infinite scroll
   const extendedProjects = [...projects, ...projects, ...projects];
 
   // Auto-slide effect
   useEffect(() => {
     const timer = setInterval(() => {
       setCurrentSlide((prev) => prev + 1);
-    }, 3000); // Change slide every 3 seconds
-
+    }, 3000);
     return () => clearInterval(timer);
   }, []);
 
@@ -65,23 +64,27 @@ const Projects = () => {
     }
   }, [currentSlide]);
 
+  // Responsive slide width
+  const slideWidthClass = "w-full sm:w-1/2 lg:w-1/3";
+  const slideCountOnScreen = window.innerWidth < 640 ? 1 : window.innerWidth < 1024 ? 2 : 3;
+
   return (
     <section
       id="projects"
-      className="bg-gray-50 py-20 border-t border-gray-200"
+      className="bg-gray-50 py-12 sm:py-16 lg:py-20 border-t border-gray-200"
     >
-      <div className="container mx-auto px-6">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Heading */}
-        <div className="text-center mb-16">
+        <div className="text-center mb-12 sm:mb-16">
           <h2
-            className="text-4xl md:text-5xl font-bold mb-6 
+            className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 sm:mb-6 
             bg-gradient-to-r from-emerald-400 via-cyan-500 to-blue-500 
             bg-clip-text text-transparent"
           >
             Projects
           </h2>
-          <div className="w-24 h-1 bg-gradient-to-r from-emerald-400 via-cyan-500 to-blue-500 mx-auto mb-8"></div>
-          <p className="text-gray-700 text-lg max-w-2xl mx-auto">
+          <div className="w-16 sm:w-24 h-1 bg-gradient-to-r from-emerald-400 via-cyan-500 to-blue-500 mx-auto mb-6 sm:mb-8"></div>
+          <p className="text-gray-700 text-base sm:text-lg max-w-2xl mx-auto">
             Here are some of my featured projects, showcasing my skills in
             full-stack development and design.
           </p>
@@ -91,18 +94,19 @@ const Projects = () => {
         <div className="relative overflow-hidden">
           {/* Sliding Track */}
           <div 
-            className={`flex ${isTransitioning ? 'transition-transform duration-1000 ease-in-out' : ''}`}
-            style={{ transform: `translateX(-${(currentSlide * 100) / 3}%)` }}
+            className={`flex ${isTransitioning ? "transition-transform duration-1000 ease-in-out" : ""}`}
+            style={{ transform: `translateX(-${(currentSlide * 100) / slideCountOnScreen}%)` }}
           >
             {extendedProjects.map((project, index) => (
               <div
                 key={`${project.title}-${index}`}
-                className="w-full md:w-1/2 lg:w-1/3 flex-shrink-0 px-4"
+                className={`flex-shrink-0 px-2 sm:px-4 ${slideWidthClass}`}
               >
-                <div className="bg-white p-6 rounded-xl shadow-md border border-gray-200 
-                hover:shadow-xl transition-all duration-300 transform hover:scale-105 group h-full">
+                <div className="bg-white p-4 sm:p-6 rounded-xl shadow-md border border-gray-200 
+                  hover:shadow-xl transition-all duration-300 transform hover:scale-105 group h-full flex flex-col"
+                >
                   {/* Image */}
-                  <div className="relative h-48 overflow-hidden rounded-lg mb-6">
+                  <div className="relative h-40 sm:h-48 overflow-hidden rounded-lg mb-4 sm:mb-6">
                     <img
                       src={project.image}
                       alt={project.title}
@@ -111,21 +115,21 @@ const Projects = () => {
                   </div>
 
                   {/* Title */}
-                  <h3 className="text-xl font-semibold text-gray-800 mb-4 text-center">
+                  <h3 className="text-lg sm:text-xl font-semibold text-gray-800 mb-2 sm:mb-4 text-center">
                     {project.title}
                   </h3>
 
                   {/* Description */}
-                  <p className="text-gray-600 text-center text-sm mb-4">
+                  <p className="text-gray-600 text-center text-xs sm:text-sm mb-2 sm:mb-4">
                     {project.description}
                   </p>
 
                   {/* Tech Stack */}
-                  <div className="flex flex-wrap justify-center gap-2 mb-4">
+                  <div className="flex flex-wrap justify-center gap-1 sm:gap-2 mb-2 sm:mb-4">
                     {project.tech.map((t, i) => (
                       <span
                         key={i}
-                        className="px-3 py-1 text-xs rounded-full bg-gradient-to-r 
+                        className="px-2 sm:px-3 py-0.5 sm:py-1 text-[10px] sm:text-xs rounded-full bg-gradient-to-r 
                         from-emerald-400 via-cyan-500 to-blue-500 text-white"
                       >
                         {t}
@@ -134,15 +138,15 @@ const Projects = () => {
                   </div>
 
                   {/* Links */}
-                  <div className="flex justify-center">
+                  <div className="flex justify-center mt-auto">
                     {project.live && (
                       <a
                         href={project.live}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="flex items-center gap-2 text-emerald-500 hover:text-cyan-500 transition-colors"
+                        className="flex items-center gap-1 sm:gap-2 text-emerald-500 hover:text-cyan-500 transition-colors text-sm"
                       >
-                        <ExternalLink size={18} /> Live
+                        <ExternalLink size={16} className="inline-block" /> Live
                       </a>
                     )}
                   </div>
@@ -170,7 +174,6 @@ const Projects = () => {
         <div className="text-center mt-6">
           <div className="inline-flex items-center gap-2 text-gray-500 text-sm">
             <div className="w-2 h-2 bg-emerald-500 rounded-full animate-pulse"></div>
-        
           </div>
         </div>
       </div>

@@ -11,6 +11,12 @@ const Header = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  // Lock scroll when mobile nav is open
+  useEffect(() => {
+    document.body.style.overflow = isOpen ? 'hidden' : '';
+    return () => { document.body.style.overflow = ''; };
+  }, [isOpen]);
+
   const navItems = [
     { name: 'Home', href: '#home', icon: Home },
     { name: 'About', href: '#about', icon: User },
@@ -31,20 +37,20 @@ const Header = () => {
         scrolled ? 'bg-slate-900/95 backdrop-blur-sm shadow-lg' : 'bg-transparent'
       }`}
     >
-      <div className="container mx-auto px-6 py-4">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-4">
         <div className="flex items-center justify-between">
           {/* Logo */}
-          <div className="text-2xl font-bold bg-gradient-to-r from-emerald-400 via-cyan-500 to-blue-500 bg-clip-text text-transparent">
+          <div className="text-xl sm:text-2xl font-bold bg-gradient-to-r from-emerald-400 via-cyan-500 to-blue-500 bg-clip-text text-transparent">
             Pawan Kumar Gupta
           </div>
 
           {/* Desktop Navigation */}
-          <nav className="hidden md:flex space-x-8">
+          <nav className="hidden md:flex space-x-4 lg:space-x-8" aria-label="Main Navigation">
             {navItems.map((item) => (
               <button
                 key={item.name}
                 onClick={() => scrollToSection(item.href)}
-                className="text-gray-300 hover:text-white transition-colors duration-300 relative group"
+                className="text-gray-300 hover:text-white transition-colors duration-300 relative group text-base px-2 py-1"
               >
                 {item.name}
                 <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-emerald-400 via-cyan-500 to-blue-500 transition-all duration-300 group-hover:w-full"></span>
@@ -55,24 +61,26 @@ const Header = () => {
           {/* Mobile Menu Button */}
           <button
             onClick={() => setIsOpen(!isOpen)}
-            className="md:hidden text-gray-300 hover:text-white transition-colors"
+            className="md:hidden p-2 rounded text-gray-300 hover:text-white transition-colors"
+            aria-label={isOpen ? "Close navigation menu" : "Open navigation menu"}
           >
-            {isOpen ? <X size={24} /> : <Menu size={24} />}
+            {isOpen ? <X size={28} /> : <Menu size={28} />}
           </button>
         </div>
 
         {/* Mobile Navigation */}
         <div
-          className={`md:hidden transition-all duration-300 overflow-hidden ${
+          className={`md:hidden transition-[max-height,opacity] duration-300 overflow-hidden ${
             isOpen ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'
           }`}
+          aria-hidden={!isOpen}
         >
-          <nav className="pt-4 pb-2">
+          <nav className="pt-4 pb-2 space-y-2" aria-label="Mobile Navigation">
             {navItems.map((item, index) => (
               <button
                 key={item.name}
                 onClick={() => scrollToSection(item.href)}
-                className="flex items-center space-x-3 w-full px-4 py-3 text-gray-300 hover:text-white hover:bg-slate-800/50 transition-all duration-300 rounded-lg"
+                className="flex items-center space-x-3 w-full px-4 py-3 text-gray-300 hover:text-white hover:bg-slate-800/50 transition-all duration-300 rounded-lg text-base"
                 style={{ animationDelay: `${index * 100}ms` }}
               >
                 <item.icon
