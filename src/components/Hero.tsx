@@ -156,12 +156,26 @@ const Hero = () => {
               >
                 Get In Touch
               </button>
+
+              {/* Download Resume */}
+                    <a
+                    href="/resume.pdf"
+                    download="Pawan_Kumar_Gupta_Resume.pdf"
+                    className="bg-gradient-to-r from-emerald-400 via-cyan-500 to-blue-500 
+                              text-white px-6 sm:px-8 py-3 sm:py-4 rounded-full font-semibold 
+                              hover:shadow-lg hover:shadow-emerald-200/40 transition-all 
+                              duration-300 transform hover:scale-105 w-full sm:w-auto 
+                              text-center block"
+                  >
+                    Download Resume
+                  </a>
+
             </div>
 
             <div className="flex justify-center space-x-4 sm:space-x-6 mb-12 sm:mb-16">
               {[
-                { icon: Linkedin, href: '#', label: 'LinkedIn' },
-                { icon: Mail, href: '#contact', label: 'Email' }
+                { icon: Linkedin, href: 'www.linkedin.com/in/pawan-gupta-435740113', label: 'LinkedIn' },
+                { icon: Mail, href: 'pawangt2812@gmail.com', label: 'Email' }
               ].map((social, index) => (
                 <a
                   key={social.label}
