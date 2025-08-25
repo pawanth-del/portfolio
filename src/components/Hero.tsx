@@ -100,11 +100,11 @@ const Hero = () => {
   return (
     <section
       ref={sectionRef}
-      className="relative min-h-screen flex items-center justify-center bg-gray-50 px-4 sm:px-6 lg:px-12"
+      className="relative min-h-screen flex items-center justify-center bg-gray-50 px-4 sm:px-6 lg:px-12 pt-16"
     >
       <div className="container mx-auto text-center relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-14 items-center">
-          
+
           {/* Lottie Animation */}
           <div className="order-2 lg:order-1 flex justify-center">
             <div className="relative w-full flex justify-center items-center h-[220px] sm:h-[300px] md:h-[420px] lg:h-[500px]">
@@ -122,7 +122,8 @@ const Hero = () => {
 
           {/* Text Content */}
           <div className="order-1 lg:order-2 animate-fade-in-up">
-            <h1 className="text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-4 
+            <h1
+              className="text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-4 
               bg-gradient-to-r from-emerald-400 via-cyan-500 to-blue-500 
               bg-clip-text text-transparent"
             >
@@ -147,9 +148,9 @@ const Hero = () => {
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-6 mb-10 sm:mb-14">
               <button
                 onClick={() => scrollToSection('#projects')}
-                className="bg-gradient-to-r from-emerald-400 via-cyan-500 to-blue-500 text-white 
-                px-5 sm:px-7 py-2.5 sm:py-3.5 rounded-full font-semibold 
-                hover:shadow-lg hover:shadow-emerald-200/40 transition-all duration-300 transform hover:scale-105 
+                className="bg-gradient-to-r from-emerald-400 via-cyan-500 to-blue-500 text-white
+                px-5 sm:px-7 py-2.5 sm:py-3.5 rounded-full font-semibold
+                hover:shadow-lg hover:shadow-emerald-200/40 transition-all duration-300 transform hover:scale-105
                 w-full sm:w-auto text-sm sm:text-base"
               >
                 View My Work
@@ -157,9 +158,9 @@ const Hero = () => {
 
               <button
                 onClick={() => scrollToSection('#contact')}
-                className="border-2 border-emerald-400 text-emerald-600 hover:bg-emerald-50 
-                px-5 sm:px-7 py-2.5 sm:py-3.5 rounded-full font-semibold 
-                transition-all duration-300 transform hover:scale-105 
+                className="border-2 border-emerald-400 text-emerald-600 hover:bg-emerald-50
+                px-5 sm:px-7 py-2.5 sm:py-3.5 rounded-full font-semibold
+                transition-all duration-300 transform hover:scale-105
                 w-full sm:w-auto text-sm sm:text-base"
               >
                 Get In Touch
@@ -169,10 +170,10 @@ const Hero = () => {
               <a
                 href="/resume.pdf"
                 download="Pawan_Kumar_Gupta_Resume.pdf"
-                className="bg-gradient-to-r from-emerald-400 via-cyan-500 to-blue-500 
-                          text-white px-5 sm:px-7 py-2.5 sm:py-3.5 rounded-full font-semibold 
-                          hover:shadow-lg hover:shadow-emerald-200/40 transition-all 
-                          duration-300 transform hover:scale-105 w-full sm:w-auto 
+                className="bg-gradient-to-r from-emerald-400 via-cyan-500 to-blue-500
+                          text-white px-5 sm:px-7 py-2.5 sm:py-3.5 rounded-full font-semibold
+                          hover:shadow-lg hover:shadow-emerald-200/40 transition-all
+                          duration-300 transform hover:scale-105 w-full sm:w-auto
                           text-sm sm:text-base text-center block"
               >
                 Download Resume
@@ -190,7 +191,7 @@ const Hero = () => {
                   href={social.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="p-2 sm:p-3 rounded-full bg-white shadow hover:shadow-md 
+                  className="p-2 sm:p-3 rounded-full bg-white shadow hover:shadow-md
                              transition-all duration-300 transform hover:scale-110 group"
                   style={{ animationDelay: `${index * 120}ms` }}
                 >
