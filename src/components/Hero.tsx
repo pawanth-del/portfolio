@@ -100,19 +100,20 @@ const Hero = () => {
   return (
     <section
       ref={sectionRef}
-      className="relative min-h-screen flex items-center justify-center bg-gray-50"
+      className="relative min-h-screen flex items-center justify-center bg-gray-50 px-4 sm:px-6 lg:px-12"
     >
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 items-center">
+      <div className="container mx-auto text-center relative z-10">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-14 items-center">
+          
           {/* Lottie Animation */}
           <div className="order-2 lg:order-1 flex justify-center">
-            <div className="relative w-full flex justify-center items-center h-[250px] sm:h-[350px] md:h-[420px] lg:h-[500px]">
+            <div className="relative w-full flex justify-center items-center h-[220px] sm:h-[300px] md:h-[420px] lg:h-[500px]">
               {lotieAni && (
                 <Lottie
                   lottieRef={lottieRef}
                   animationData={lotieAni}
                   loop={false}
-                  style={{ width: '100%', maxWidth: 400, height: '100%' }}
+                  style={{ width: '100%', maxWidth: 380, height: '100%' }}
                   className="mx-auto"
                 />
               )}
@@ -121,70 +122,79 @@ const Hero = () => {
 
           {/* Text Content */}
           <div className="order-1 lg:order-2 animate-fade-in-up">
-            <h1 className="text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-bold mb-6 
+            <h1 className="text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-4 
               bg-gradient-to-r from-emerald-400 via-cyan-500 to-blue-500 
               bg-clip-text text-transparent"
             >
               Hey, my name is
-              <span className="block bg-gradient-to-r from-emerald-400 via-cyan-500 to-blue-500 bg-clip-text text-transparent">
+              <span className="block mt-1 bg-gradient-to-r from-emerald-400 via-cyan-500 to-blue-500 bg-clip-text text-transparent">
                 Pawan Kumar Gupta
               </span>
             </h1>
 
-            <div className="text-base sm:text-xl md:text-2xl text-gray-700  h-8">
+            <div className="text-sm sm:text-lg md:text-xl lg:text-2xl text-gray-700 h-8 sm:h-10">
               <span className="border-r-2 border-emerald-400 animate-pulse">
                 {displayText}
               </span>
             </div>
 
-            <p className="text-sm sm:text-base md:text-lg text-gray-700 mb-8 sm:mb-12 max-w-2xl mx-auto leading-relaxed">
+            <p className="text-xs sm:text-sm md:text-base lg:text-lg text-gray-700 my-6 sm:my-8 max-w-2xl mx-auto leading-relaxed px-2">
               Passionate about creating beautiful, functional, and user-centered digital experiences.
               I bring ideas to life through code and design.
             </p>
 
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-6 mb-12 sm:mb-16">
+            {/* CTA Buttons */}
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-6 mb-10 sm:mb-14">
               <button
                 onClick={() => scrollToSection('#projects')}
-                className="bg-gradient-to-r from-emerald-400 via-cyan-500 to-blue-500 text-white px-6 sm:px-8 py-3 sm:py-4 rounded-full font-semibold hover:shadow-lg hover:shadow-emerald-200/40 transition-all duration-300 transform hover:scale-105 w-full sm:w-auto"
+                className="bg-gradient-to-r from-emerald-400 via-cyan-500 to-blue-500 text-white 
+                px-5 sm:px-7 py-2.5 sm:py-3.5 rounded-full font-semibold 
+                hover:shadow-lg hover:shadow-emerald-200/40 transition-all duration-300 transform hover:scale-105 
+                w-full sm:w-auto text-sm sm:text-base"
               >
                 View My Work
               </button>
 
               <button
                 onClick={() => scrollToSection('#contact')}
-                className="border-2 border-emerald-400 text-emerald-600 hover:bg-emerald-50 px-6 sm:px-8 py-3 sm:py-4 rounded-full font-semibold transition-all duration-300 transform hover:scale-105 w-full sm:w-auto"
+                className="border-2 border-emerald-400 text-emerald-600 hover:bg-emerald-50 
+                px-5 sm:px-7 py-2.5 sm:py-3.5 rounded-full font-semibold 
+                transition-all duration-300 transform hover:scale-105 
+                w-full sm:w-auto text-sm sm:text-base"
               >
                 Get In Touch
               </button>
 
               {/* Download Resume */}
-                    <a
-                    href="/resume.pdf"
-                    download="Pawan_Kumar_Gupta_Resume.pdf"
-                    className="bg-gradient-to-r from-emerald-400 via-cyan-500 to-blue-500 
-                              text-white px-6 sm:px-8 py-3 sm:py-4 rounded-full font-semibold 
-                              hover:shadow-lg hover:shadow-emerald-200/40 transition-all 
-                              duration-300 transform hover:scale-105 w-full sm:w-auto 
-                              text-center block"
-                  >
-                    Download Resume
-                  </a>
-
+              <a
+                href="/resume.pdf"
+                download="Pawan_Kumar_Gupta_Resume.pdf"
+                className="bg-gradient-to-r from-emerald-400 via-cyan-500 to-blue-500 
+                          text-white px-5 sm:px-7 py-2.5 sm:py-3.5 rounded-full font-semibold 
+                          hover:shadow-lg hover:shadow-emerald-200/40 transition-all 
+                          duration-300 transform hover:scale-105 w-full sm:w-auto 
+                          text-sm sm:text-base text-center block"
+              >
+                Download Resume
+              </a>
             </div>
 
-            <div className="flex justify-center space-x-4 sm:space-x-6 mb-12 sm:mb-16">
+            {/* Social Links */}
+            <div className="flex justify-center space-x-3 sm:space-x-5 mb-8 sm:mb-14">
               {[
-                { icon: Linkedin, href: 'www.linkedin.com/in/pawan-gupta-435740113', label: 'LinkedIn' },
-                { icon: Mail, href: 'pawangt2812@gmail.com', label: 'Email' }
+                { icon: Linkedin, href: 'https://www.linkedin.com/in/pawan-gupta-435740113', label: 'LinkedIn' },
+                { icon: Mail, href: 'mailto:pawangt2812@gmail.com', label: 'Email' }
               ].map((social, index) => (
                 <a
                   key={social.label}
                   href={social.href}
-                  onClick={social.href.startsWith('#') ? (e) => { e.preventDefault(); scrollToSection(social.href); } : undefined}
-                  className="p-2 sm:p-3 rounded-full bg-white shadow hover:shadow-md transition-all duration-300 transform hover:scale-110 group"
-                  style={{ animationDelay: `${index * 100}ms` }}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="p-2 sm:p-3 rounded-full bg-white shadow hover:shadow-md 
+                             transition-all duration-300 transform hover:scale-110 group"
+                  style={{ animationDelay: `${index * 120}ms` }}
                 >
-                  <social.icon size={22} className="text-emerald-600 group-hover:text-cyan-600 transition-colors" />
+                  <social.icon size={20} className="sm:size-22 text-emerald-600 group-hover:text-cyan-600 transition-colors" />
                 </a>
               ))}
             </div>
@@ -192,11 +202,12 @@ const Hero = () => {
         </div>
       </div>
 
+      {/* Scroll Down Arrow */}
       <button
         onClick={() => scrollToSection('#about')}
         className="absolute bottom-6 sm:bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce"
       >
-        <ChevronDown size={28} className="text-emerald-500 hover:text-cyan-500 transition-colors" />
+        <ChevronDown size={26} className="sm:size-28 text-emerald-500 hover:text-cyan-500 transition-colors" />
       </button>
     </section>
   );

@@ -1,13 +1,13 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { ExternalLink } from "lucide-react";
 
 const projects = [
   {
     title: "Travel Booking Website",
     description:
-      "Developed comprehensive travel booking platform using React.js and Node.js, managing 200+ travel packages with real-time availability tracking",
+      "Developed travel booking platform using React.js and Node.js with 200+ travel packages & real-time tracking",
     image: "/yatramiles.png",
-    live: "https://Yatramiles.in",
+    live: "https://www.yatramiles.in",
     tech: ["React", "Node.js", "MongoDB"],
   },
   {
@@ -19,7 +19,7 @@ const projects = [
     tech: ["Flutter", "Dart"],
   },
   {
-    title: "Updated and Managed Rourkelapolice.in",
+    title: "Rourkelapolice.in",
     description:
       "Developed an interactive dashboard for police to visualize CCTV coverage across wards.",
     image: "/rourkela.png",
@@ -29,44 +29,86 @@ const projects = [
   {
     title: "Loan Approval Predictor",
     description:
-      "An end-to-end ML web application built with Streamlit and scikit-learn to predict loan approval based on applicant details.",
+      "ML web app built with Streamlit & scikit-learn to predict loan approval.",
     image: "/loan.png",
     live: "https://your-streamlit-app-link.com",
     tech: ["Python", "Streamlit", "Scikit-learn", "Flask"],
-  }
+  },
 ];
 
 const Projects = () => {
-  const [currentSlide, setCurrentSlide] = useState(0);
+  const [currentSlide, setCurrentSlide] = useState(projects.length); // Start in middle for infinite scroll
   const [isTransitioning, setIsTransitioning] = useState(true);
+  const containerRef = useRef<HTMLDivElement>(null);
 
-  // Extended for smooth infinite scroll
   const extendedProjects = [...projects, ...projects, ...projects];
 
-  // Auto-slide effect
+  // Determine slides visible based on window width
+  const getSlidesOnScreen = () => {
+    if (typeof window === "undefined") return 1;
+    if (window.innerWidth < 640) return 1; // Mobile
+    if (window.innerWidth < 1024) return 2; // Tablet
+    return 3; // Desktop
+  };
+  const [slidesOnScreen, setSlidesOnScreen] = useState(getSlidesOnScreen());
+  const slideWidthClass = "w-full sm:w-1/2 lg:w-1/3";
+
+  // Handle window resize to update visible slides count
   useEffect(() => {
-    const timer = setInterval(() => {
-      setCurrentSlide((prev) => prev + 1);
-    }, 3000);
-    return () => clearInterval(timer);
+    const handleResize = () => setSlidesOnScreen(getSlidesOnScreen());
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  // Handle infinite loop reset
+  // Infinite loop handling to reset slides seamlessly
   useEffect(() => {
     if (currentSlide >= projects.length * 2) {
       setTimeout(() => {
         setIsTransitioning(false);
         setCurrentSlide(projects.length);
-        setTimeout(() => {
-          setIsTransitioning(true);
-        }, 50);
-      }, 1000);
+        setTimeout(() => setIsTransitioning(true), 50);
+      }, 600);
     }
-  }, [currentSlide]);
+    if (currentSlide < projects.length) {
+      setTimeout(() => {
+        setIsTransitioning(false);
+        setCurrentSlide(projects.length * 2 - slidesOnScreen);
+        setTimeout(() => setIsTransitioning(true), 50);
+      }, 600);
+    }
+  }, [currentSlide, slidesOnScreen]);
 
-  // Responsive slide width
-  const slideWidthClass = "w-full sm:w-1/2 lg:w-1/3";
-  const slideCountOnScreen = window.innerWidth < 640 ? 1 : window.innerWidth < 1024 ? 2 : 3;
+  // Slide movement handlers, moving by number of slides visible
+  const nextSlide = () => setCurrentSlide((prev) => prev + slidesOnScreen);
+  const prevSlide = () => setCurrentSlide((prev) => prev - slidesOnScreen);
+
+  // Swipe support for touch devices
+  useEffect(() => {
+    let startX = 0,
+      endX = 0;
+    const handleTouchStart = (e: TouchEvent) => (startX = e.touches[0].clientX);
+    const handleTouchMove = (e: TouchEvent) => (endX = e.touches[0].clientX);
+    const handleTouchEnd = () => {
+      if (startX - endX > 50) nextSlide();
+      if (endX - startX > 50) prevSlide();
+    };
+    const slider = containerRef.current;
+    if (slider) {
+      slider.addEventListener("touchstart", handleTouchStart);
+      slider.addEventListener("touchmove", handleTouchMove);
+      slider.addEventListener("touchend", handleTouchEnd);
+    }
+    return () => {
+      if (slider) {
+        slider.removeEventListener("touchstart", handleTouchStart);
+        slider.removeEventListener("touchmove", handleTouchMove);
+        slider.removeEventListener("touchend", handleTouchEnd);
+      }
+    };
+  }, [slidesOnScreen]);
+
+  // Calculate total pages for dots
+  const totalPages = Math.ceil(projects.length / slidesOnScreen);
 
   return (
     <section
@@ -74,43 +116,42 @@ const Projects = () => {
       className="bg-gray-50 py-12 sm:py-16 lg:py-20 border-t border-gray-200"
     >
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Section Heading */}
+        {/* Heading */}
         <div className="text-center mb-12 sm:mb-16">
           <h2
-            className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 sm:mb-6 
-            bg-gradient-to-r from-emerald-400 via-cyan-500 to-blue-500 
-            bg-clip-text text-transparent"
+            className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 
+            bg-gradient-to-r from-emerald-400 via-cyan-500 to-blue-500 bg-clip-text text-transparent"
           >
             Projects
           </h2>
-          <div className="w-16 sm:w-24 h-1 bg-gradient-to-r from-emerald-400 via-cyan-500 to-blue-500 mx-auto mb-6 sm:mb-8"></div>
+          <div className="w-16 sm:w-24 h-1 bg-gradient-to-r from-emerald-400 via-cyan-500 to-blue-500 mx-auto mb-6" />
           <p className="text-gray-700 text-base sm:text-lg max-w-2xl mx-auto">
-            Here are some of my featured projects, showcasing my skills in
-            full-stack development and design.
+            Some highlighted projects showcasing my skills in development & design.
           </p>
         </div>
 
-        {/* Auto Slider Container */}
-        <div className="relative overflow-hidden">
-          {/* Sliding Track */}
-          <div 
-            className={`flex ${isTransitioning ? "transition-transform duration-1000 ease-in-out" : ""}`}
-            style={{ transform: `translateX(-${(currentSlide * 100) / slideCountOnScreen}%)` }}
+        {/* Slider */}
+        <div className="relative overflow-hidden" ref={containerRef}>
+          <div
+            className={`flex ${
+              isTransitioning ? "transition-transform duration-700 ease-in-out" : ""
+            }`}
+            style={{
+              transform: `translateX(-${currentSlide * (100 / slidesOnScreen)}%)`,
+            }}
           >
             {extendedProjects.map((project, index) => (
               <div
                 key={`${project.title}-${index}`}
                 className={`flex-shrink-0 px-2 sm:px-4 ${slideWidthClass}`}
               >
-                <div className="bg-white p-4 sm:p-6 rounded-xl shadow-md border border-gray-200 
-                  hover:shadow-xl transition-all duration-300 transform hover:scale-105 group h-full flex flex-col"
-                >
+                <div className="bg-white p-4 sm:p-6 rounded-xl shadow-md border border-gray-200 hover:shadow-xl transition-all duration-300 transform hover:scale-105 group h-full flex flex-col">
                   {/* Image */}
                   <div className="relative h-40 sm:h-48 overflow-hidden rounded-lg mb-4 sm:mb-6">
                     <img
                       src={project.image}
                       alt={project.title}
-                      className="object-cover w-full h-full transform group-hover:scale-110 transition-transform duration-500"
+                      className="object-cover w-full h-full transform transition-transform duration-500 lg:group-hover:scale-110"
                     />
                   </div>
 
@@ -129,52 +170,53 @@ const Projects = () => {
                     {project.tech.map((t, i) => (
                       <span
                         key={i}
-                        className="px-2 sm:px-3 py-0.5 sm:py-1 text-[10px] sm:text-xs rounded-full bg-gradient-to-r 
-                        from-emerald-400 via-cyan-500 to-blue-500 text-white"
+                        className="px-2 sm:px-3 py-0.5 sm:py-1 text-[10px] sm:text-xs rounded-full bg-gradient-to-r from-emerald-400 via-cyan-500 to-blue-500 text-white"
                       >
                         {t}
                       </span>
                     ))}
                   </div>
 
-                  {/* Links */}
-                  <div className="flex justify-center mt-auto">
-                    {project.live && (
+                  {/* Live Link with stopPropagation handlers */}
+                  {project.live && (
+                    <div className="flex justify-center mt-auto pointer-events-auto">
                       <a
                         href={project.live}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="flex items-center gap-1 sm:gap-2 text-emerald-500 hover:text-cyan-500 transition-colors text-sm"
+                        onClick={(e) => e.stopPropagation()}
+                        onTouchStart={(e) => e.stopPropagation()}
+                        className="flex items-center gap-1 text-emerald-500 hover:text-cyan-500 transition-colors text-sm"
                       >
-                        <ExternalLink size={16} className="inline-block" /> Live
+                        <ExternalLink size={16} /> Live
                       </a>
-                    )}
-                  </div>
+                    </div>
+                  )}
                 </div>
               </div>
             ))}
           </div>
         </div>
 
-        {/* Progress Indicator */}
+        {/* Clickable Animated Dots */}
         <div className="flex justify-center space-x-2 mt-8">
-          {projects.map((_, index) => (
-            <div
-              key={index}
-              className={`h-1 rounded-full transition-all duration-300 ${
-                (currentSlide % projects.length) === index
-                  ? "w-8 bg-gradient-to-r from-emerald-500 to-cyan-500"
-                  : "w-4 bg-gray-300"
-              }`}
-            />
-          ))}
-        </div>
-
-        {/* Auto-play indicator */}
-        <div className="text-center mt-6">
-          <div className="inline-flex items-center gap-2 text-gray-500 text-sm">
-            <div className="w-2 h-2 bg-emerald-500 rounded-full animate-pulse"></div>
-          </div>
+          {Array.from({ length: totalPages }).map((_, index) => {
+            const isActive =
+              Math.floor(currentSlide / slidesOnScreen) % totalPages === index;
+            return (
+              <button
+                key={index}
+                onClick={() =>
+                  setCurrentSlide(projects.length + index * slidesOnScreen)
+                }
+                className={`h-2 rounded-full transition-all duration-500 ease-in-out focus:outline-none ${
+                  isActive
+                    ? "w-8 bg-gradient-to-r from-emerald-500 to-cyan-500"
+                    : "w-4 bg-gray-300"
+                }`}
+              />
+            );
+          })}
         </div>
       </div>
     </section>
